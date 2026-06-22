@@ -1,0 +1,37 @@
+{
+  "inner": [
+    { "name": "",     "slug": "python",      "hex": "0d9488" },
+    { "name": "",          "slug": "c",            "hex": "0d9488" },
+    { "name": "",        "slug": "cplusplus",    "hex": "0d9488" },
+    { "name": "",       "url" : "https://img.icons8.com/?size=100&id=13679&format=png&color=000000" },
+    { "name": "",       "slug": "gnubash",      "hex": "0d9488" },
+    { "name": "",       "slug": "html5",        "hex": "0d9488" },
+    { "name": "",        "url" : "https://img.icons8.com/?size=100&id=21278&format=png&color=000000" },
+    { "name": "", "slug": "javascript",   "hex": "0d9488" },
+    { "name": "",     "slug": "nodedotjs",    "hex": "0d9488" },
+    { "name": "",        "url":  "https://img.icons8.com/?size=100&id=wDKHrGlFU936&format=png&color=0d9488", "text": "SQL" }
+  ],
+  "middle": [
+    { "name": "ROS2",         "slug": "ros",          "hex": "7c3aed" },
+    { "name": "OpenCV",       "slug": "opencv",       "hex": "7c3aed" },
+    { "name": "NumPy",        "slug": "numpy",        "hex": "7c3aed" },
+    { "name": "Pandas",       "slug": "pandas",       "hex": "7c3aed" },
+    { "name": "Matplotlib",   "url" : "https://img.icons8.com/?size=100&id=TkX1totjFmAD&format=png&color=000000" },
+    { "name": "SciPy",        "slug": "scipy",        "hex": "7c3aed" },
+    { "name": "Scikit-Learn", "slug": "scikitlearn",  "hex": "7c3aed" },
+    { "name": "TensorFlow",   "slug": "tensorflow",   "hex": "7c3aed" },
+    { "name": "PyTorch",      "slug": "pytorch",      "hex": "7c3aed" },
+    { "name": "ExpressJS",    "slug": "express",      "hex": "7c3aed" },
+    { "name": "MongoDB",      "slug": "mongodb",      "hex": "7c3aed" }
+  ],
+  "outer": [
+    { "name": "Git",       "slug": "git",       "hex": "f59e0b" },
+    { "name": "GitHub",    "slug": "github",    "hex": "f59e0b" },
+    { "name": "Docker",    "slug": "docker",    "hex": "f59e0b" },
+    { "name": "Gazebo",    "url":  "https://icon.icepanel.io/Technology/png-shadow-512/Gazebo.png",                           "text": "GZB"  },
+    { "name": "F1Tenth",   "url":  "https://f1tenth-coursekit.readthedocs.io/en/latest/_images/f1_stickers_01.png",           "text": "F1T"  },
+    { "name": "Isaac Sim", "url":  "https://img.icons8.com/?size=100&id=eLp0UzmXETI1&format=png&color=000000",               "text": "ISIM" },
+    { "name": "Arduino",   "slug": "arduino",   "hex": "f59e0b" },
+    { "name": "ESP32",     "slug": "espressif", "hex": "f59e0b" }
+  ]
+}

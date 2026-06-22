@@ -1,0 +1,18 @@
+[
+  {
+    "year": "2026",
+    "title": "CrabFormer: RGB-D segmentation and pose estimation for front-end loading of piled Chesapeake blue crabs",
+    "venue": "Computers and Electronics in Agriculture",
+    "role": "Acknowledged Contributor",
+    "role_color": "green",
+    "link": "https://www.sciencedirect.com/science/article/pii/S0168169926001833"
+  },
+  {
+    "year": "2023",
+    "title": "Image Enhancement of Low Light Image using Deep Learning",
+    "venue": "International Journal of Advanced Research in Science, Communication and Technology",
+    "role": "Co-Author",
+    "role_color": "purple",
+    "link": "https://ijarsct.co.in/Paper9246.pdf"
+  }
+]

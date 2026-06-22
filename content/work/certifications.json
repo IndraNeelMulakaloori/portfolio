@@ -1,0 +1,65 @@
+[
+  {
+    "name":     "NVIDIA-Certified Associate: Generative AI LLMs",
+    "issuer":   "NVIDIA",
+    "date":     "Oct 2025",
+    "link":     "https://www.credly.com/badges/f426c36f-a44a-4c32-bc18-ecb1e748240e",
+    "icon_slug": "nvidia",
+    "icon_hex":  "76B900"
+  },
+  {
+    "name":     "CS50X",
+    "issuer":   "CS50 · Harvard",
+    "date":     "May 2024",
+    "link":     "https://certificates.cs50.io/9bffcb75-6133-40e6-afb4-48f09ccd3d87.pdf?size=letter",
+    "icon_url": "https://media.licdn.com/dms/image/v2/C4E0BAQGYjmmBCvqLmg/company-logo_200_200/company-logo_200_200/0/1631309789389?e=1783555200&v=beta&t=DgbIHE9IGqauso3tXFj0_Zzv7M1-OO0MLH2_m-SUKhY"
+  },
+  {
+    "name":     "Advanced Learning Algorithms",
+    "issuer":   "Coursera",
+    "date":     "Sep 2023",
+    "link":     "https://coursera.org/verify/NQS6HPT7LNWD",
+    "icon_slug": "coursera",
+    "icon_hex":  "0056D2"
+  },
+  {
+    "name":     "Supervised Machine Learning: Regression and Classification",
+    "issuer":   "Coursera",
+    "date":     "Jun 2023",
+    "link":     "https://coursera.org/verify/Y6XDZCKBDAG4",
+    "icon_slug": "coursera",
+    "icon_hex":  "0056D2"
+  },
+  {
+    "name":     "Python (Basic)",
+    "issuer":   "HackerRank",
+    "date":     "Skill Cert",
+    "link":     "https://www.hackerrank.com/certificates/709d03b0935a",
+    "icon_slug": "hackerrank",
+    "icon_hex":  "2EC866"
+  },
+  {
+    "name":     "Problem Solving (Basic)",
+    "issuer":   "HackerRank",
+    "date":     "Skill Cert",
+    "link":     "https://www.hackerrank.com/certificates/c24146413ee8",
+    "icon_slug": "hackerrank",
+    "icon_hex":  "2EC866"
+  },
+  {
+    "name":     "JavaScript (Basic)",
+    "issuer":   "HackerRank",
+    "date":     "Skill Cert",
+    "link":     "https://www.hackerrank.com/certificates/7a808fef62ad",
+    "icon_slug": "hackerrank",
+    "icon_hex":  "2EC866"
+  },
+  {
+    "name":     "Complete Web Development Bootcamp",
+    "issuer":   "Udemy",
+    "date":     "Sep 2022",
+    "link":     "https://www.udemy.com/certificate/UC-8a4fb0fa-e280-4f5b-9520-5c380fb00603/",
+    "icon_slug": "udemy",
+    "icon_hex":  "A435F0"
+  }
+]

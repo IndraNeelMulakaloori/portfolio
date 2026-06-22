@@ -1,0 +1,22 @@
+[
+  {
+    "period": "2025 — present",
+    "title": "Graduate Research Assistant",
+    "org": "Bio-Imaging & Machine Vision Lab · UMD",
+    "bullets": [
+      "Generated a novel multi-modal sensorimotor dataset of 750+ high-precision robotic manipulation episodes for training imitation learning policies.",
+      "Pre-processed large-scale sensorimotor datasets including alignment, filtering, and format conversion across heterogeneous sensor modalities.",
+      "Optimized data collection pipeline by tuning end-effector hardware parameters and refining Python acquisition scripts, reducing per-episode collection time by <strong>33%</strong> and improving movement recording accuracy by <strong>40%</strong>.",
+      "Benchmarked PyTorch-based deep imitation learning algorithms across tasks requiring multi-sensor integration and fine dexterous control."
+    ]
+  },
+  {
+    "period": "2025 — present",
+    "title": "M.Eng. Robotics",
+    "org": "University of Maryland · College Park (CGPA: 3.96/4.0)",
+    "bullets": [
+      "Coursework in Path Planning, Perception, Controls, Robot Learning etc.",
+      "Expected graduation: Dec 2026."
+    ]
+  }
+]
