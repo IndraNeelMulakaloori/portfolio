@@ -88,6 +88,29 @@ let postsLoaded         = false;
 let blogsLoaded         = false;
 let projectsLoaded      = false;
 
+// ── PAGINATION + FILTER STATE ──
+const PAGE_SIZE         = 6;
+let allProjects         = [];
+let allWriteups         = [];
+let allPubs             = [];
+let projectFilters      = [
+    { label: "Perception / CV",    color: "purple" },
+    { label: "Path Planning",      color: "purple" },
+    { label: "Motion Planning",    color: "purple" },
+    { label: "Learning",           color: "green"  },
+    { label: "Autonomous Systems", color: "purple" },
+    { label: "C++",                color: "green"  },
+    { label: "Python",             color: "green"  },
+    { label: "Simulation",         color: "purple" },
+    { label: "Hardware",           color: "green"  },
+    { label: "Math",               color: "purple" },
+    { label: "Web Dev",            color: "green"  },
+];
+let activeFilters       = new Set();
+let currentProjectPage  = 0;
+let currentWriteupPage  = 0;
+let currentPubPage      = 0;
+
 // ── STACK: CODOLIO ──
 const PLATFORM_CONFIG = {
     leetcode:      { label: 'LC',  icon: 'https://cdn.simpleicons.org/leetcode/FFA116'      },
@@ -155,63 +178,68 @@ async function fetchCodolio() {
 async function loadPosts() {
     if (postsLoaded) return;
     postsLoaded = true;
-    const carousel = document.getElementById('li-carousel');
-    if (!carousel) return;
+    const grid = document.getElementById('posts-grid');
+    if (!grid) return;
     try {
-        const posts    = await fetch('content/work/posts.json').then(r => r.json());
-        const progress = carousel.querySelector('.li-progress');
-        posts.forEach((post, i) => {
-            const slide = document.createElement('div');
-            slide.className = `li-slide${i === 0 ? ' active' : ''}`;
-            slide.innerHTML = `<div class="li-post-header">
-                <img src="https://cdn.simpleicons.org/linkedin/0A66C2" class="li-icon" alt="" width="13" height="13">
-                <span class="li-label">linkedin · ${i + 1} / ${posts.length}</span>
-                <a class="li-external" href="${post.external}" target="_blank" rel="noopener">open ↗</a>
-            </div>
-            <iframe class="li-iframe" src="https://www.linkedin.com/embed/feed/update/${post.embed}" frameborder="0" allowfullscreen title="LinkedIn post"></iframe>`;
-            carousel.insertBefore(slide, progress);
-        });
-        const dotsEl = document.getElementById('li-dots');
-        if (dotsEl) dotsEl.innerHTML = posts.map((_, i) =>
-            `<button class="li-dot${i === 0 ? ' active' : ''}"></button>`).join('');
-        initCarousel();
+        const posts = await fetch('content/work/posts.json', { cache: 'no-store' }).then(r => r.json());
+        const liSvg = `<svg class="post-card-li-logo" width="52" height="52" viewBox="0 0 24 24" fill="currentColor" style="color:#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>`;
+        const liBadge = `<span class="post-card-li-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>`;
+        grid.innerHTML = posts.map(p => {
+            const thumb = p.image
+                ? `<img src="${p.image}" alt="" loading="lazy">`
+                : liSvg;
+            return `<a class="post-card" href="${p.external}" target="_blank" rel="noopener">
+                <div class="post-card-thumb">
+                    ${thumb}
+                    ${liBadge}
+                </div>
+                <div class="post-card-body">
+                    <div class="post-card-title">${p.title || 'LinkedIn Post'}</div>
+                    ${p.desc ? `<p class="post-card-desc">${p.desc}</p>` : ''}
+                    <div class="post-card-footer">
+                        <span class="post-card-date">${p.date || ''}</span>
+                        <span class="post-card-link">open ↗</span>
+                    </div>
+                </div>
+            </a>`;
+        }).join('');
     } catch {}
 }
 
-function initCarousel() {
-    const slides = Array.from(document.querySelectorAll('.li-slide'));
-    const dots   = Array.from(document.querySelectorAll('.li-dot'));
-    const fill   = document.getElementById('li-progress-fill');
-    if (!slides.length) return;
+function initSidebarToggle() {
+    const btn      = document.getElementById('sidebar-toggle-btn');
+    const sidebar  = document.querySelector('.sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (!btn || !sidebar) return;
 
-    let current = 0;
-    let timer   = null;
+    const iconOpen  = btn.querySelector('.st-icon-open');
+    const iconClose = btn.querySelector('.st-icon-close');
 
-    function startProgress() {
-        if (!fill) return;
-        fill.classList.remove('running');
-        void fill.offsetWidth;
-        fill.classList.add('running');
+    function openSidebar() {
+        sidebar.classList.add('sidebar--open');
+        if (backdrop) backdrop.classList.add('visible');
+        if (iconOpen)  iconOpen.style.display  = 'none';
+        if (iconClose) iconClose.style.display = '';
     }
 
-    function goTo(n) {
-        slides[current].classList.remove('active');
-        dots[current].classList.remove('active');
-        current = (n + slides.length) % slides.length;
-        slides[current].querySelector('.li-label').textContent =
-            `linkedin · ${current + 1} / ${slides.length}`;
-        slides[current].classList.add('active');
-        dots[current].classList.add('active');
-        clearTimeout(timer);
-        startProgress();
-        timer = setTimeout(() => goTo(current + 1), 30000);
+    function closeSidebar() {
+        sidebar.classList.remove('sidebar--open');
+        if (backdrop) backdrop.classList.remove('visible');
+        if (iconOpen)  iconOpen.style.display  = '';
+        if (iconClose) iconClose.style.display = 'none';
     }
 
-    document.getElementById('li-prev')?.addEventListener('click', () => goTo(current - 1));
-    document.getElementById('li-next')?.addEventListener('click', () => goTo(current + 1));
-    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
-    startProgress();
-    timer = setTimeout(() => goTo(1), 30000);
+    btn.addEventListener('click', () =>
+        sidebar.classList.contains('sidebar--open') ? closeSidebar() : openSidebar()
+    );
+
+    if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+    document.querySelectorAll('.sidebar-link, .sidebar-avatar-wrap').forEach(el => {
+        el.addEventListener('click', () => {
+            if (window.innerWidth <= 900) closeSidebar();
+        });
+    });
 }
 
 // ── ENTERTAINMENT: ANIME (Jikan / MyAnimeList) ──
@@ -319,7 +347,8 @@ function renderMarkdown(md) {
         .replace(/<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>/g,
                  '<div class="writeup-formula">$1</div>')
         .replace(/<code>([^<]*?)<\/code>/g,
-                 '<span class="wu-code">$1</span>');
+                 '<span class="wu-code">$1</span>')
+        .replace(/<a href="http/g, '<a target="_blank" rel="noopener" href="http');
     return html;
 }
 
@@ -375,7 +404,106 @@ async function loadPersonalAbout() {
 }
 
 // ── CONTENT: PUBLICATIONS ──
+// ── PAGINATION HELPER ──
+function renderPagination(containerId, current, total, onChange) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    if (total <= 1) { el.innerHTML = ''; return; }
+    const prev  = `<button class="page-btn" ${current === 0 ? 'disabled' : ''} data-p="${current - 1}" aria-label="Previous page">←</button>`;
+    const nums  = Array.from({ length: total }, (_, i) =>
+        `<button class="page-btn ${i === current ? 'active' : ''}" data-p="${i}" aria-label="Page ${i + 1}">${i + 1}</button>`
+    ).join('');
+    const next  = `<button class="page-btn" ${current === total - 1 ? 'disabled' : ''} data-p="${current + 1}" aria-label="Next page">→</button>`;
+    el.innerHTML = prev + nums + next;
+    el.querySelectorAll('.page-btn:not([disabled])').forEach(btn =>
+        btn.addEventListener('click', () => onChange(parseInt(btn.dataset.p)))
+    );
+}
+
+// ── FILTER BAR ──
+function renderFilterBar() {
+    const bar = document.getElementById('project-filter-bar');
+    if (!bar) return;
+    bar.style.display = '';
+    const allChip = `<button class="filter-chip filter-chip--all ${activeFilters.size === 0 ? 'active' : ''}" data-f="__all">all</button>`;
+    const chips   = projectFilters.map(f =>
+        `<button class="filter-chip filter-chip--${f.color} ${activeFilters.has(f.label) ? 'active' : ''}" data-f="${f.label}">${f.label}</button>`
+    ).join('');
+    bar.innerHTML = allChip + chips;
+    bar.querySelectorAll('.filter-chip').forEach(chip =>
+        chip.addEventListener('click', () => {
+            const f = chip.dataset.f;
+            if (f === '__all') { activeFilters.clear(); }
+            else if (activeFilters.has(f)) { activeFilters.delete(f); }
+            else { activeFilters.add(f); }
+            currentProjectPage = 0;
+            renderFilterBar();
+            renderProjectsPage();
+        })
+    );
+}
+
+// ── PROJECTS PAGE RENDER ──
+function renderProjectsPage() {
+    const grid = document.getElementById('projects-grid');
+    if (!grid) return;
+    const filtered = activeFilters.size === 0
+        ? allProjects
+        : allProjects.filter(p => (p.meta.filters || []).some(f => activeFilters.has(f)));
+    const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+    if (currentProjectPage >= pages) currentProjectPage = 0;
+    const slice = filtered.slice(currentProjectPage * PAGE_SIZE, (currentProjectPage + 1) * PAGE_SIZE);
+    grid.innerHTML = slice.length
+        ? slice.map(p => renderProjectCard(p.slug, p.meta)).join('')
+        : '<p class="ent-empty">no projects match this filter</p>';
+    grid.querySelectorAll('.project-card[data-project]').forEach(card =>
+        card.addEventListener('click', e => {
+            if (e.target.closest('a')) return;
+            const p = allProjects.find(x => x.slug === card.dataset.project);
+            if (!p) return;
+            const container = document.getElementById('project-detail-container');
+            container.innerHTML = renderProjectDetail(p.meta, renderWriteupSections(p.body));
+            container.querySelector('.wu-back')?.addEventListener('click', () => history.back());
+            initYtFacades(container);
+            history.pushState({ project: p.slug }, '');
+            showProjectDetailView();
+        })
+    );
+    renderPagination('projects-pagination', currentProjectPage, pages, page => {
+        currentProjectPage = page;
+        renderProjectsPage();
+        document.getElementById('projects-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
 let publicationsLoaded = false;
+
+function renderPubCard(p) {
+    const titleEl = p.link
+        ? `<a class="pub-title" href="${p.link}" target="_blank" rel="noopener">${p.title}</a>`
+        : `<span class="pub-title">${p.title}</span>`;
+    return `<div class="pub-item">
+        <div class="pub-year">${p.year}</div>
+        <div class="pub-body">
+            ${titleEl}
+            <div class="pub-venue">${p.venue}</div>
+            <div class="pub-meta"><span class="tag tag-${p.role_color}">${p.role}</span></div>
+        </div>
+    </div>`;
+}
+
+function renderPubsPage() {
+    const list = document.getElementById('publications-list');
+    if (!list) return;
+    const pages = Math.max(1, Math.ceil(allPubs.length / PAGE_SIZE));
+    if (currentPubPage >= pages) currentPubPage = 0;
+    const slice = allPubs.slice(currentPubPage * PAGE_SIZE, (currentPubPage + 1) * PAGE_SIZE);
+    list.innerHTML = slice.map(renderPubCard).join('');
+    renderPagination('pubs-pagination', currentPubPage, pages, page => {
+        currentPubPage = page;
+        renderPubsPage();
+    });
+}
 
 async function loadPublications() {
     if (publicationsLoaded) return;
@@ -383,20 +511,8 @@ async function loadPublications() {
     const list = document.getElementById('publications-list');
     if (!list) return;
     try {
-        const pubs = await fetch('content/work/publications.json').then(r => r.json());
-        list.innerHTML = pubs.map(p => {
-            const titleEl = p.link
-                ? `<a class="pub-title" href="${p.link}" target="_blank" rel="noopener">${p.title}</a>`
-                : `<span class="pub-title">${p.title}</span>`;
-            return `<div class="pub-item">
-                <div class="pub-year">${p.year}</div>
-                <div class="pub-body">
-                    ${titleEl}
-                    <div class="pub-venue">${p.venue}</div>
-                    <div class="pub-meta"><span class="tag tag-${p.role_color}">${p.role}</span></div>
-                </div>
-            </div>`;
-        }).join('');
+        allPubs = await fetch('content/work/publications.json').then(r => r.json());
+        renderPubsPage();
     } catch {}
 }
 
@@ -528,36 +644,46 @@ function showWriteupDetailView() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function renderWriteupsPage() {
+    const index = document.getElementById('writeup-index');
+    if (!index) return;
+    const pages = Math.max(1, Math.ceil(allWriteups.length / PAGE_SIZE));
+    if (currentWriteupPage >= pages) currentWriteupPage = 0;
+    const slice = allWriteups.slice(currentWriteupPage * PAGE_SIZE, (currentWriteupPage + 1) * PAGE_SIZE);
+    index.innerHTML = slice.map(w => renderWriteupCard(w.slug, w.meta)).join('');
+    index.querySelectorAll('.wu-card').forEach(card =>
+        card.addEventListener('click', () => {
+            const wu = allWriteups.find(w => w.slug === card.dataset.writeup);
+            if (!wu) return;
+            const container = document.getElementById('writeup-detail-container');
+            container.innerHTML = renderWriteupDetail(wu.meta, renderWriteupSections(wu.body));
+            container.querySelector('.wu-back')?.addEventListener('click', () => history.back());
+            initYtFacades(container);
+            history.pushState({ writeup: wu.slug }, '');
+            showWriteupDetailView();
+        })
+    );
+    renderPagination('writeups-pagination', currentWriteupPage, pages, page => {
+        currentWriteupPage = page;
+        renderWriteupsPage();
+    });
+}
+
 async function loadWriteups() {
     if (blogsLoaded) { showWriteupIndex(); return; }
     blogsLoaded = true;
     const index = document.getElementById('writeup-index');
     try {
-        const slugs    = await fetch('content/work/writeups/manifest.json').then(r => r.json());
-        const writeups = await Promise.all(slugs.map(async slug => {
-            const text        = await fetch(`content/work/writeups/${slug}.md`).then(r => r.text());
+        const slugs = await fetch('content/work/writeups/manifest.json').then(r => r.json());
+        allWriteups = await Promise.all(slugs.map(async slug => {
+            const text           = await fetch(`content/work/writeups/${slug}.md`).then(r => r.text());
             const { meta, body } = parseFrontmatter(text);
             return { slug, meta, body };
         }));
-
-        index.innerHTML = writeups.map(w => renderWriteupCard(w.slug, w.meta)).join('');
-
-        index.querySelectorAll('.wu-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const wu = writeups.find(w => w.slug === card.dataset.writeup);
-                if (!wu) return;
-                const container = document.getElementById('writeup-detail-container');
-                container.innerHTML = renderWriteupDetail(wu.meta, renderWriteupSections(wu.body));
-                container.querySelector('.wu-back')?.addEventListener('click', () => history.back());
-                initYtFacades(container);
-                history.pushState({ writeup: wu.slug }, '');
-                showWriteupDetailView();
-            });
-        });
+        renderWriteupsPage();
     } catch {
         index.innerHTML = '<p class="ent-empty">couldn\'t load writeups — run via local server, not file://</p>';
     }
-
     window.addEventListener('popstate', () => {
         if (currentSection === 'blogs') showWriteupIndex();
     });
@@ -587,9 +713,9 @@ function renderProjectCard(slug, meta) {
     return `<div class="project-card" data-project="${slug}" style="cursor:pointer">
         ${thumb}
         <div class="project-card-header"><div class="project-name">${meta.title}</div></div>
+        ${tags ? `<div class="tags project-card-tags">${tags}</div>` : ''}
         <p class="project-desc">${meta.desc || ''}</p>
         <div class="project-card-footer">
-            <div class="tags">${tags}</div>
             ${links ? `<div class="project-links">${links}</div>` : ''}
         </div>
     </div>`;
@@ -617,8 +743,8 @@ function renderProjectDetail(meta, bodyHtml) {
     return `<button class="wu-back">← projects</button>
         <article class="writeup">
             <div class="writeup-header">
-                <div class="writeup-kicker">${tags}</div>
                 <h2 class="writeup-title">${meta.title}</h2>
+                ${tags ? `<div class="writeup-kicker">${tags}</div>` : ''}
                 ${meta.desc ? `<p class="writeup-subtitle">${meta.desc}</p>` : ''}
             </div>
             <div class="writeup-body">${bodyHtml}</div>
@@ -628,18 +754,20 @@ function renderProjectDetail(meta, bodyHtml) {
 }
 
 function showProjectIndex() {
-    const detail = document.getElementById('project-detail-container');
-    if (detail) detail.style.display = 'none';
-    const grid   = document.getElementById('projects-grid');
-    if (grid)   grid.style.display = '';
+    document.getElementById('project-detail-container').style.display  = 'none';
+    document.getElementById('projects-grid').style.display             = '';
+    const fw = document.querySelector('.project-filter-wrap');
+    if (fw) fw.style.display = '';
+    document.getElementById('projects-pagination').style.display       = '';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function showProjectDetailView() {
-    const grid   = document.getElementById('projects-grid');
-    if (grid)   grid.style.display = 'none';
-    const detail = document.getElementById('project-detail-container');
-    if (detail) detail.style.display = 'block';
+    document.getElementById('projects-grid').style.display             = 'none';
+    const fw = document.querySelector('.project-filter-wrap');
+    if (fw) fw.style.display = 'none';
+    document.getElementById('projects-pagination').style.display       = 'none';
+    document.getElementById('project-detail-container').style.display  = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -649,29 +777,20 @@ async function loadProjects() {
     const grid = document.getElementById('projects-grid');
     if (!grid) return;
     try {
-        const slugs    = await fetch('content/work/projects/manifest.json').then(r => r.json());
-        const projects = await Promise.all(slugs.map(async slug => {
-            const text           = await fetch(`content/work/projects/${slug}.md`).then(r => r.text());
+        // Load filter definitions from JSON (overrides hardcoded defaults if present)
+        try {
+            const r = await fetch('content/work/project-filters.json', { cache: 'no-store' });
+            if (r.ok) projectFilters = await r.json();
+        } catch {}
+
+        const slugs = await fetch('content/work/projects/manifest.json', { cache: 'no-store' }).then(r => r.json());
+        allProjects = await Promise.all(slugs.map(async slug => {
+            const text           = await fetch(`content/work/projects/${slug}.md`, { cache: 'no-store' }).then(r => r.text());
             const { meta, body } = parseFrontmatter(text);
             return { slug, meta, body };
         }));
-
-        grid.innerHTML = projects.map(p => renderProjectCard(p.slug, p.meta)).join('');
-
-        grid.querySelectorAll('.project-card[data-project]').forEach(card => {
-            card.addEventListener('click', e => {
-                if (e.target.closest('a')) return;
-                const p = projects.find(x => x.slug === card.dataset.project);
-                if (!p) return;
-                const container = document.getElementById('project-detail-container');
-                container.innerHTML = renderProjectDetail(p.meta, renderWriteupSections(p.body));
-                container.querySelector('.wu-back')?.addEventListener('click', () => history.back());
-                initYtFacades(container);
-                history.pushState({ project: p.slug }, '');
-                showProjectDetailView();
-            });
-        });
-
+        renderFilterBar();
+        renderProjectsPage();
         window.addEventListener('popstate', () => {
             if (currentSection === 'projects') showProjectIndex();
         });
@@ -756,8 +875,43 @@ document.querySelectorAll(".sidebar-link").forEach(link =>
     link.addEventListener("click", () => switchSection(link.dataset.section))
 );
 
+// ── SCROLL TO TOP ──
+const scrollTopBtn = document.getElementById('scroll-top-btn');
+window.addEventListener('scroll', () => {
+    scrollTopBtn?.classList.toggle('visible', window.scrollY > 80);
+}, { passive: true });
+scrollTopBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ── NAV BRAND + AVATAR → ABOUT ──
+document.getElementById('nav-brand')?.addEventListener('click', e => {
+    e.preventDefault();
+    switchSection('about');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+document.getElementById('sidebar-avatar-btn')?.addEventListener('click', () => {
+    switchSection('about');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
 // ── INIT ──
+// ── DOCK LINKS ──
+async function loadDockLinks() {
+    try {
+        const links = await fetch('content/work/dock-links.json').then(r => r.json());
+        Object.entries(links).forEach(([key, url]) => {
+            ['dock-', 'sidebar-'].forEach(prefix => {
+                const el = document.getElementById(prefix + key);
+                if (!el) return;
+                if (url) { el.href = url; el.style.display = ''; }
+                else      { el.style.display = 'none'; }
+            });
+        });
+    } catch {}
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     timerId = setTimeout(tick, 500);
     loadWorkAbout();
+    loadDockLinks();
+    initSidebarToggle();
 });

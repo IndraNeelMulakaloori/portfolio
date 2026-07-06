@@ -2,6 +2,7 @@
 title: PokéSearch
 desc: Flask web app that queries the PokéAPI to surface Pokémon stats — height, weight, base XP, abilities, types, and moves — with audio cries triggered on hover.
 tags: [{"label":"Flask","color":"green"},{"label":"Python","color":"green"},{"label":"REST API","color":"purple"},{"label":"Jinja2","color":"green"},{"label":"Bootstrap","color":"green"}]
+filters: ["Web Dev", "Python"]
 youtube: 3IfHZCVvMD8
 demo: https://youtu.be/3IfHZCVvMD8
 github: https://github.com/IndraNeelMulakaloori/PokeSearch

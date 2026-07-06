@@ -2,6 +2,7 @@
 title: RRT*N - Gaussian-Biased Path Planning
 desc: An improved RRT* that replaces uniform random sampling with a Normal distribution centered on the start-to-goal line, converging faster, finding smoother paths, and handling dynamic obstacles.
 tags: [{"label":"Path Planning","color":"purple"},{"label":"ROS 2","color":"purple"},{"label":"Gazebo","color":"purple"},{"label":"Python","color":"green"},{"label":"NumPy","color":"green"}]
+filters: ["Path Planning", "Python", "Simulation", "Autonomous Systems"]
 github: https://github.com/IndraNeelMulakaloori/RRT_N_PRM
 youtube : Y8cgWP0WHBg
 demo: https://youtu.be/Y8cgWP0WHBg

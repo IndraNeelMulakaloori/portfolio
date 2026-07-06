@@ -2,6 +2,7 @@
 title: On-Road Obstacle Detection & Distance Estimation
 desc: YOLOv8 ensemble that detects traffic cones, stop signs, and barrier structures with geometric distance estimation — reaching 123 FPS on GPU via ONNX quantization.
 tags: [{"label":"Computer Vision","color":"purple"},{"label":"YOLOv8","color":"purple"},{"label":"Python","color":"green"},{"label":"ONNX","color":"green"},{"label":"CUDA","color":"green"}]
+filters: ["Perception / CV", "Python", "Autonomous Systems", "Learning"]
 image: https://raw.githubusercontent.com/IndraNeelMulakaloori/road-obstacles/main/testing_samples/test_image.jpg
 github: https://github.com/IndraNeelMulakaloori/road-obstacles
 ---

@@ -2,6 +2,7 @@
 title: Real Time GPS Data Logger
 desc: ESP32 + NEO-6M GPS system using FreeRTOS task scheduling to parse NMEA satellite streams in real time, publish encrypted telemetry over MQTT, and visualize live tracking on a Leaflet.js cloud dashboard.
 tags: [{"label":"Embedded Systems","color":"purple"},{"label":"FreeRTOS","color":"purple"},{"label":"ESP-IDF","color":"purple"},{"label":"C","color":"green"},{"label":"MQTT","color":"green"},{"label":"WiFi","color":"green"}]
+filters: ["Hardware"]
 youtube: 8swYhXtw61w
 demo: https://youtu.be/8swYhXtw61w
 github: https://github.com/IndraNeelMulakaloori/rtos-gps-logger

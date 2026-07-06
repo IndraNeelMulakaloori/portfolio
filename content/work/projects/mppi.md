@@ -2,6 +2,7 @@
 title: Learning-Augmented MPPI Controller for Autonomous Navigation
 desc: PPO supervisor dynamically adapts MPPI cost weights + LiDAR safety bubble online — 2,000 GPU rollouts per 50 ms, pushing the 1/10-scale motor near its physical limit of ~8.5 m/s.
 tags: [{"label":"PPO","color":"green"},{"label":"F1Tenth","color":"purple"},{"label":"PyTorch","color":"green"},{"label":"CUDA","color":"green"},{"label":"Stable-Baselines3","color":"green"},{"label":"Python","color":"green"},{"label":"Reinforcement Learning","color":"purple"}]
+filters: ["Motion Planning", "Learning", "Autonomous Systems", "Python", "Simulation"]
 youtube: qJhP0GkZjAA
 demo: https://youtu.be/qJhP0GkZjAA
 confidential: true

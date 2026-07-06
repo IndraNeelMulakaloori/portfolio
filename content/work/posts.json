@@ -1,18 +1,32 @@
 [
   {
-    "external": "https://www.linkedin.com/posts/neel-mulakaloori_i-attended-nvidia-gtc-dc-2025-one-of-the-activity-7389147163743776768-acJD/",
-    "embed":    "urn:li:activity:7389147163743776768"
+    "title": "Nvidia GTC DC 2025",
+    "desc": "One of the premier AI & robotics conferences of the year — sharing key takeaways from the sessions.",
+    "image": "https://media.licdn.com/dms/image/v2/D5622AQHknusRZf_5DA/feedshare-shrink_800/B56ZouGE4uJwAg-/0/1761709944235?e=1784764800&v=beta&t=78CQ-XWvrg0nYFfmppSkmEkhKOY3j8tz1a2h-QidiA4",
+    "date": "Oct 2025",
+    "external": "https://www.linkedin.com/posts/neel-mulakaloori_i-attended-nvidia-gtc-dc-2025-one-of-the-activity-7389147163743776768-acJD/"
   },
   {
-    "external": "https://www.linkedin.com/posts/our-mage-students-didnt-just-read-about-ugcPost-7401688585470738432-m9Zt/",
-    "embed":    "urn:li:ugcPost:7401688585470738432"
+    "title": "Maryland Day",
+    "desc": "Our lab participated in Maryland Day explaining our research on Mushroom sorting robot",
+    "image": "https://media.licdn.com/dms/image/v2/D4E22AQHqH1eY7r_cbg/feedshare-shrink_800/B4EZ3WB5z.JkAc-/0/1777412316703?e=1784764800&v=beta&t=ElYbNZeR-v1yl-W1B_3V2qOmF6YDv72U3y7RuHvJg4Y",
+    "date": "April 2026",
+    "external": "https://www.linkedin.com/feed/update/urn:li:activity:7455262137947607041/"
   },
   {
-    "external": "https://www.linkedin.com/feed/update/urn:li:activity:7454560589584195584/",
-    "embed":    "urn:li:activity:7454560589584195584"
+    "title": "NIST",
+    "desc": "my visit to NIST",
+    "image": "https://media.licdn.com/dms/image/v2/D4E10AQEuMKF14fO0hA/image-shrink_800/B4EZ3PrTj2JQAg-/0/1777305730016?e=1783980000&v=beta&t=nbJA_ByggE810O1s_q4LN96Fffgy5qzjZql4gJHcorQ",
+    "date": "April 2026",
+    "external": "https://www.linkedin.com/feed/update/urn:li:activity:7454560589584195584/"
   },
   {
-    "external": "https://www.linkedin.com/feed/update/urn:li:activity:7455262137947607041/",
-    "embed":    "urn:li:activity:7455262137947607041"
+    "title": "Forterra visit",
+    "desc": "Explaining about my industrial visit to Forterra",
+    "image": "",
+    "date": "Oct 2025",
+    "external": "https://www.linkedin.com/posts/our-mage-students-didnt-just-read-about-ugcPost-7401688585470738432-m9Zt/"
   }
+  
+  
 ]

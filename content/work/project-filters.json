@@ -1,0 +1,13 @@
+[
+  { "label": "Perception / CV",    "color": "purple" },
+  { "label": "Path Planning",      "color": "purple" },
+  { "label": "Motion Planning",    "color": "purple" },
+  { "label": "Learning",           "color": "green"  },
+  { "label": "Autonomous Systems", "color": "purple" },
+  { "label": "C++",                "color": "green"  },
+  { "label": "Python",             "color": "green"  },
+  { "label": "Simulation",         "color": "purple" },
+  { "label": "Hardware",           "color": "green"  },
+  { "label": "Math",               "color": "purple" },
+  { "label": "Web Dev",            "color": "green"  }
+]

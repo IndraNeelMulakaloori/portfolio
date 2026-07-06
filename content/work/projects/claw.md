@@ -2,6 +2,7 @@
 title: CLAW — C++ Linear Algebra Library
 desc: A from-scratch C++ matrix library implementing LU decomposition, RREF, inverse, rank/nullity, and sanitization of floating-point edge cases — built for numerical computing without external dependencies.
 tags: [{"label":"Linear Algebra","color":"purple"},{"label":"C++","color":"green"},{"label":"Numerical Computing","color":"green"}]
+filters: ["C++", "Math"]
 image: https://opengraph.githubassets.com/1/IndraNeelMulakaloori/LA
 github: https://github.com/IndraNeelMulakaloori/LA
 ---
