@@ -1,7 +1,7 @@
 ---
 title: PID Wall Following & Ablation Study
 subtitle: From reactive braking to full closed-loop control — implementing a PD wall-follower, then building an automated 64-run ablation pipeline to find the optimal gains.
-tags: [{"label":"F1Tenth · Lab 3","color":"purple"},{"label":"ROS 2","color":"green"},{"label":"Python","color":"green"},{"label":"NumPy","color":"green"}]
+tags: [{"label":"F1Tenth · Lab 3","color":"purple"},{"label":"ROS 2","color":"green"},{"label":"Python","color":"green"}, {"label":"PID","color":"green"}]
 github: https://github.com/IndraNeelMulakaloori/roboracer_upenn/tree/main/lab3_ws/src/lab3_pkg
 youtube: IJxhWnC8JQw
 demo: https://www.youtube.com/watch?v=IJxhWnC8JQw

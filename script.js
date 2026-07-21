@@ -341,7 +341,13 @@ function parseFrontmatter(text) {
 
 function renderMarkdown(md) {
     if (!md || typeof marked === 'undefined') return md || '';
+    // Stash math blocks before marked can mangle _ and ** inside them
+    const mathStore = [];
+    md = md.replace(/\$\$[\s\S]*?\$\$/g, m => { mathStore.push(m); return `\x00MATH${mathStore.length - 1}\x00`; });
+    md = md.replace(/\$[^\$\n]+?\$/g,    m => { mathStore.push(m); return `\x00MATH${mathStore.length - 1}\x00`; });
     let html = marked.parse(md);
+    // Restore math so KaTeX can render it
+    html = html.replace(/\x00MATH(\d+)\x00/g, (_, i) => mathStore[+i]);
     html = html
         .replace(/<ul>/g, '<ul class="writeup-list">')
         .replace(/<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>/g,
@@ -350,6 +356,18 @@ function renderMarkdown(md) {
                  '<span class="wu-code">$1</span>')
         .replace(/<a href="http/g, '<a target="_blank" rel="noopener" href="http');
     return html;
+}
+
+function renderMath(container) {
+    if (typeof renderMathInElement === 'function') {
+        renderMathInElement(container, {
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$',  right: '$',  display: false }
+            ],
+            throwOnError: false
+        });
+    }
 }
 
 function renderWriteupSections(body) {
@@ -463,6 +481,7 @@ function renderProjectsPage() {
             if (!p) return;
             const container = document.getElementById('project-detail-container');
             container.innerHTML = renderProjectDetail(p.meta, renderWriteupSections(p.body));
+            renderMath(container);
             container.querySelector('.wu-back')?.addEventListener('click', () => history.back());
             initYtFacades(container);
             history.pushState({ project: p.slug }, '');
@@ -657,6 +676,7 @@ function renderWriteupsPage() {
             if (!wu) return;
             const container = document.getElementById('writeup-detail-container');
             container.innerHTML = renderWriteupDetail(wu.meta, renderWriteupSections(wu.body));
+            renderMath(container);
             container.querySelector('.wu-back')?.addEventListener('click', () => history.back());
             initYtFacades(container);
             history.pushState({ writeup: wu.slug }, '');

@@ -1,7 +1,7 @@
 ---
 title: Automatic Emergency Braking
 subtitle: Building an iTTC-based safety node that stops an autonomous racecar before collision — and why the naive implementation fails at speed.
-tags: [{"label":"F1Tenth · Lab 2","color":"purple"},{"label":"ROS 2","color":"green"},{"label":"Python","color":"green"}]
+tags: [{"label":"F1Tenth · Lab 2","color":"purple"},{"label":"ROS 2","color":"green"},{"label":"Python","color":"green"}, {"label":"AEB","color":"green"}]
 github: https://github.com/IndraNeelMulakaloori/roboracer_upenn/tree/main/lab2_ws/src/lab2_pkg
 youtube: IX63GQjZQbg
 demo: https://youtu.be/IX63GQjZQbg
