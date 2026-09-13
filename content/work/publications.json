@@ -1,6 +1,14 @@
 [
   {
     "year": "2026",
+    "title": "Learning-Augmented MPPI Control for Autonomous Navigation",
+    "venue": "IEEE Robotics and Automation Letters (RA-L) (Under Review)",
+    "role": "Primary Author",
+    "role_color": "red",
+    "link": "#"
+  },
+  {
+    "year": "2026",
     "title": "CrabFormer: RGB-D segmentation and pose estimation for front-end loading of piled Chesapeake blue crabs",
     "venue": "Computers and Electronics in Agriculture",
     "role": "Acknowledged Contributor",

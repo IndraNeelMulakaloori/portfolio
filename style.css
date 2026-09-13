@@ -28,6 +28,18 @@
     --sidebar-accent: #0a7a71;
     --sidebar-text:   #64748b;
     --nav-brand-bg:   #0a7a71;
+    --red:          #dc2626;
+    --red-dim:      rgba(220, 38, 38, 0.09);
+    --tag-r-border: rgba(220, 38, 38, 0.22);
+    --blue:         #2563eb;
+    --blue-dim:     rgba(37, 99, 235, 0.09);
+    --tag-b-border: rgba(37, 99, 235, 0.22);
+    --orange:       #ea580c;
+    --orange-dim:   rgba(234, 88, 12, 0.09);
+    --tag-o-border: rgba(234, 88, 12, 0.22);
+    --yellow:       #ca8a04;
+    --yellow-dim:   rgba(202, 138, 4, 0.09);
+    --tag-y-border: rgba(202, 138, 4, 0.22);
 }
 
 /* ── DARK MODE ── */
@@ -57,6 +69,18 @@
     --sidebar-accent: #64ffda;
     --sidebar-text:   #ffffff;
     --nav-brand-bg:   #64ffda;
+    --red:          #f87171;
+    --red-dim:      rgba(248, 113, 113, 0.12);
+    --tag-r-border: rgba(248, 113, 113, 0.22);
+    --blue:         #60a5fa;
+    --blue-dim:     rgba(96, 165, 250, 0.12);
+    --tag-b-border: rgba(96, 165, 250, 0.22);
+    --orange:       #fb923c;
+    --orange-dim:   rgba(251, 146, 60, 0.12);
+    --tag-o-border: rgba(251, 146, 60, 0.22);
+    --yellow:       #fbbf24;
+    --yellow-dim:   rgba(251, 191, 36, 0.12);
+    --tag-y-border: rgba(251, 191, 36, 0.22);
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1020,6 +1044,30 @@ a.pub-title:hover { color: var(--accent); }
     border: 1px solid var(--tag-p-border);
 }
 
+.tag-red {
+    color: var(--red);
+    background: var(--red-dim);
+    border: 1px solid var(--tag-r-border);
+}
+
+.tag-blue {
+    color: var(--blue);
+    background: var(--blue-dim);
+    border: 1px solid var(--tag-b-border);
+}
+
+.tag-orange {
+    color: var(--orange);
+    background: var(--orange-dim);
+    border: 1px solid var(--tag-o-border);
+}
+
+.tag-yellow {
+    color: var(--yellow);
+    background: var(--yellow-dim);
+    border: 1px solid var(--tag-y-border);
+}
+
 /* ── ORBIT (STACK — 3-ring solar system) ── */
 .orbit-scene {
     position: relative;
@@ -1853,8 +1901,12 @@ a.pub-title:hover { color: var(--accent); }
 }
 .filter-chip:hover { border-color: var(--accent); color: var(--accent); }
 .filter-chip.active.filter-chip--all { background: var(--accent); border-color: var(--accent); color: #fff; }
-.filter-chip.active.filter-chip--green { background: var(--accent-dim); border-color: var(--tag-g-border); color: var(--accent); }
-.filter-chip.active.filter-chip--purple { background: var(--purple-dim); border-color: var(--tag-p-border); color: var(--purple); }
+.filter-chip.active.filter-chip--green  { background: var(--accent-dim);  border-color: var(--tag-g-border); color: var(--accent);  }
+.filter-chip.active.filter-chip--purple { background: var(--purple-dim);  border-color: var(--tag-p-border); color: var(--purple); }
+.filter-chip.active.filter-chip--red    { background: var(--red-dim);     border-color: var(--tag-r-border); color: var(--red);    }
+.filter-chip.active.filter-chip--blue   { background: var(--blue-dim);    border-color: var(--tag-b-border); color: var(--blue);   }
+.filter-chip.active.filter-chip--orange { background: var(--orange-dim);  border-color: var(--tag-o-border); color: var(--orange); }
+.filter-chip.active.filter-chip--yellow { background: var(--yellow-dim);  border-color: var(--tag-y-border); color: var(--yellow); }
 
 /* ── PAGINATION ── */
 .pagination-bar {
