@@ -1,5 +1,5 @@
 ---
-title: ADS Development Pipeline for CARLA
+title: Stereo Vision Pipeline for CARLA
 desc: ROS 2 and CARLA integration that brings synchronized stereo vision and vehicle sensor data into a colored 3D point cloud — with RGB cameras, LiDAR, GNSS, and IMU data visualized in RViz2.
 tags: [{"label":"CARLA","color":"purple"},{"label":"ROS 2","color":"green"},{"label":"Stereo Vision","color":"purple"},{"label":"Python","color":"green"},{"label":"Point Clouds","color":"green"}]
 filters: ["Autonomous Systems", "Perception / CV", "Python", "Simulation", "ROS 2", "Math"]
