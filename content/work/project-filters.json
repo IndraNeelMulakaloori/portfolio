@@ -7,6 +7,7 @@
   { "label": "C++",                "color": "green"  },
   { "label": "Python",             "color": "green"  },
   { "label": "Simulation",         "color": "purple" },
+  { "label": "ROS 2",              "color": "green"  },
   { "label": "Hardware",           "color": "green"  },
   { "label": "Math",               "color": "purple" },
   { "label": "Web Dev",            "color": "green"  }
